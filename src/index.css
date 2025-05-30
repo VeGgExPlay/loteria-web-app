@@ -1,0 +1,245 @@
+:root {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.board {
+  width: fit-content;
+  margin: 40px auto;
+  text-align: center;
+}
+
+.board h1 {
+  color: #eee;
+  margin-bottom: 16px;
+}
+
+.board button {
+  padding: 8px 12px;
+  margin: 25px;
+  background: transparent;
+  border: 2px solid #eee;
+  color: #eee;
+  width: 100px;
+  border-radius: 5px;
+  transition: 0.2s;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.board button:hover {
+  background: #eee;
+  color: #222;
+}
+
+.board .game {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+
+.turn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 15px auto;
+  width: fit-content;
+  position: relative;
+  border-radius: 10px;
+  gap: 16px;
+}
+
+.turn .square,
+.winner .square {
+  width: 70px;
+  height: 70px;
+  pointer-events: none;
+  border-color: transparent;
+}
+
+.square.is-selected {
+  color: #fff;
+  background: #09f;
+}
+
+.winner {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  padding: 10px;
+  top: 0;
+  left: 0;
+  display: grid;
+  place-items: center;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.text-container{
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 16px;
+}
+
+.winner .text {
+  background: #111;
+  min-height: 300px;
+  height: auto;
+  max-height: 70%;
+  width:auto;
+  min-width: 300px;
+  border: 2px solid #eee;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+.winner .win {
+  margin: 0 auto;
+  width: fit-content;
+  border-radius: 10px;
+  display: flex;
+  gap: 15px;
+}
+
+.square {
+  width: 200px;
+  height: 310px;
+  border: 2px solid #eee;
+  border-radius: 5px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  font-size: 48px;
+  overflow: hidden;
+}
+
+.square-history {
+  width: auto;
+  height: auto;
+  border: 2px solid #eee;
+  border-radius: 5px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  font-size: 48px;
+  overflow: hidden;
+}
+
+.square img{
+  width: 100%;
+  display: block;
+  object-fit: cover;
+  background: #fff;
+}
+
+.square-history img{
+  width: 100px;
+  display: block;
+  object-fit: cover;
+  background: #fff;
+}
+
+.center{
+  display: flex;
+  justify-content: center;
+}
+
+.history-grid{
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 18px;
+}
+
+/* 
+  #C70101 0px,
+    #C70101 100px,
+    #A30000 0px,
+    #A30000 170px,
+    #6A0204 0px,
+    #6A0204 200px 
+    
+*/
+
+/* Fondo animado diagonal */
+.background-animated {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+
+  background: repeating-linear-gradient(
+    135deg,
+    #C70101 0px,
+    #C70101 50px,
+    #A30000 50px,
+    #A30000 100px,
+    #6A0204 100px,
+    #6A0204 150px
+  );
+  background-size: 200% 200%;
+  animation: scroll-background 5s linear infinite;
+}
+
+@keyframes scroll-background {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: -212px 0; /* Igual al tamaño total del patrón */
+  }
+}
+
+
+.container{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: repeat(2, minmax(50px, 1fr));
+  grid-template-areas: 
+  ". content rightbar"
+  "footer footer footer";
+}
+
+.container main{
+  grid-area: content;
+}
+
+.container aside{
+  grid-area: rightbar;
+}
+
+.container footer{
+  grid-area: footer;
+}
