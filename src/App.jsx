@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import './App.css'
 import { cards } from './logic/constants'
 import { Cronometer } from './components/Cronometer'
@@ -6,6 +6,7 @@ import { ArrowUp } from './components/Icons'
 import { WinnerModal } from './components/WinnerModal'
 import { Board } from './components/Board'
 import { FiltersProvider } from './context/Filters'
+import { useResponsiveQuantity } from './logic/useResponsiveQuantity'
 
 
 function App() {
@@ -15,20 +16,40 @@ function App() {
   const [enterCondition, setEnterCondition] = useState(true)
   const [modalEnabled, setModalEnabled] = useState(false)
 
-  const cantidad = 10 // Cantidad de resultados visibles del historial
+  const mapQuantity = useResponsiveQuantity()
+
+  // Detectar cambios en la variable de actualCard
+  /* useEffect(() => {
+    if (firstRender.current) {
+      firstRender.current = false
+      return // Evita ejecutar en el primer render
+    }
+    if (firstRenderDev.current) {
+      firstRenderDev.current = false
+      return // Evita ejecutar en el primer render modo Dev
+    }
+
+    // Agregar la carta actual al historial
+    const newCardsHistory = [...cardsHistory]
+    if(newCardsHistory.length !== cards.length-1){
+      newCardsHistory.push(actualCard)
+      setCardsHistory(newCardsHistory)
+    }
+  }, [actualCard]) */
 
   // Control del modal del historial
-
   const handleModalEnabled = () =>{
     setModalEnabled(prev => !prev)
   }
 
+  //Comprobar que sea la última carta
   useEffect(() => {
     if(cardsState.length === 1){
       setEnterCondition(false)
     }
   }, [cardsState])
 
+  // Hacer un shuffle para obtener una carta nueva aleatoria
   const shuffleCard = () => {
     if(!enterCondition) return
     if(actualCard === null){
@@ -44,7 +65,7 @@ function App() {
     }
 
     // Obtener un índice diferente al historial
-    const newAvailable = cardsState.filter(obj => !newCardsHistory.some(e => e.id === obj.id))
+    const newAvailable = cardsState.filter(obj => !cardsHistory.some(e => e.id === obj.id))
     if (newAvailable.length === 0) {
       const newEnterCondition = false
       setEnterCondition(newEnterCondition)
@@ -80,14 +101,14 @@ function App() {
           <section className='game turn'>
             <div className='history-grid'>
               {
-                cardsHistory.slice(-cantidad).reverse()?.map((element, index) => (
+                cardsHistory.slice(-mapQuantity).reverse()?.map((element, index) => (
                   <div key={index} className='square-history'>
                     <img src={element.image} alt={element.title} />
                   </div>
                 ))
               }
             </div>
-            {cardsHistory.length >= 10 
+            {cardsHistory.length >= mapQuantity
             ? 
             <div className='cards-history'>
               <button onClick={handleModalEnabled}>

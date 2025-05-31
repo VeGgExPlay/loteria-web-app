@@ -201,7 +201,7 @@ body {
   gap: 18px;
 }
 
-@media (max-width: 400px){
+@media (max-width: 500px){
   .history-grid{
     grid-template-columns: repeat(3, 1fr);
   }
@@ -260,7 +260,7 @@ body {
   "footer footer footer";
 }
 
-@media (max-width: 400px){
+@media (max-width: 500px){
   .container{
     grid-template-rows: auto auto minmax(50px, 1fr);
     grid-template-areas: 
