@@ -7,6 +7,7 @@ import { WinnerModal } from './components/WinnerModal'
 import { Board } from './components/Board'
 import { FiltersProvider } from './context/Filters'
 import { useResponsiveQuantity } from './logic/useResponsiveQuantity'
+import { AnimatePresence, motion } from "motion/react"
 
 
 function App() {
@@ -102,9 +103,15 @@ function App() {
             <div className='history-grid'>
               {
                 cardsHistory.slice(-mapQuantity).reverse()?.map((element, index) => (
-                  <div key={index} className='square-history'>
+                  <motion.div 
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1, boxShadow: "10px 10px #000" }}
+                  exit={{ opacity: 0, scale: 0.8 }}
+                  transition={{type: "spring", stiffness: 300, damping: 15 }} 
+                  key={element.id} 
+                  className='square-history'>
                     <img src={element.image} alt={element.title} />
-                  </div>
+                  </motion.div>
                 ))
               }
             </div>
@@ -118,7 +125,17 @@ function App() {
           </section>
         </footer>
         <FiltersProvider>
-          <WinnerModal modalEnabled={modalEnabled} cardsHistory={[...cardsHistory]} handleModalEnabled={handleModalEnabled}/>
+          <AnimatePresence>
+            {
+              modalEnabled && (
+                <WinnerModal 
+                modalEnabled={modalEnabled} 
+                cardsHistory={[...cardsHistory]} 
+                handleModalEnabled={handleModalEnabled}
+                />
+              )
+            }
+          </AnimatePresence>
         </FiltersProvider>
       </div>
     </>
