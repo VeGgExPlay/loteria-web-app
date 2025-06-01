@@ -8,7 +8,7 @@ export function Cronometer({shuffleCardFunction, enterCondition}) {
   const [firstTime, setFirstTime] = useState(true)
   const [pause, setPause] = useState(false)
 
-  const duration = 5 // duración en segundos
+  const duration = 8 // duración en segundos
 
   // Cambiar el ícono de pausa y play
   const playPauseIcon = pause ? <Pause /> : <Play />

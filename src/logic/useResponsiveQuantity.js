@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-export function useResponsiveQuantity(defaultCantidad = 10, smallCantidad = 3, breakpoint = 500){
+export function useResponsiveQuantity(defaultCantidad = 5, smallCantidad = 3, breakpoint = 500){
     const [mapQuantity, setMapQuantity] = useState(
         window.innerWidth < breakpoint ? smallCantidad : defaultCantidad
     )
