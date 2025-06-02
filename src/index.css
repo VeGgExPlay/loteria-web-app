@@ -253,7 +253,7 @@ body {
 .container{
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: repeat(2, minmax(50px, 1fr));
+  grid-template-rows: repeat(2, minmax(50px, auto));
   grid-template-areas: 
   ". content rightbar"
   "footer footer footer";

@@ -8,6 +8,7 @@ import { Board } from './components/Board'
 import { FiltersProvider } from './context/Filters'
 import { useResponsiveQuantity } from './logic/useResponsiveQuantity'
 import { AnimatePresence, motion } from "motion/react"
+import { useCronometer } from './logic/useCronometer'
 
 const MURF_API_KEY = "ap2_6eadc8d1-6732-4722-9478-d671df554691"
 
@@ -19,6 +20,8 @@ function App() {
   const [cardsHistory, setCardsHistory] = useState([])
   const [enterCondition, setEnterCondition] = useState(true)
   const [modalEnabled, setModalEnabled] = useState(false)
+
+  const {setPause, setActive, setTimeLeft, setFirstTime} = useCronometer()
 
   const mapQuantity = useResponsiveQuantity()
 
@@ -81,6 +84,19 @@ function App() {
   // Control del modal del historial
   const handleModalEnabled = () =>{
     setModalEnabled(prev => !prev)
+  }
+
+  const resetButton = () => {
+    setCardsState(cards)
+    setActualCard(null)
+    setCardsHistory([])
+    setEnterCondition(true)
+    setModalEnabled(false)
+    setPause(false)
+    setActive(prev => !prev)
+    setTimeLeft(null)
+    setEnterCondition(true)
+    setFirstTime(true)
   }
 
   //Comprobar que sea la última carta
@@ -177,6 +193,9 @@ function App() {
             }
           </AnimatePresence>
         </FiltersProvider>
+        <div className='cronometer-buttons'>
+          <button onClick={resetButton}>Mondongo</button>
+        </div>
       </div>
     </>
   )

@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react"
 import "../App.css"
 import { ArrowRight, Pause, Play } from "./Icons"
+import { useCronometer } from "../logic/useCronometer"
 
 export function Cronometer({shuffleCardFunction, enterCondition}) {
-  const [timeLeft, setTimeLeft] = useState(null)
-  const [active, setActive] = useState(false)
-  const [firstTime, setFirstTime] = useState(true)
-  const [pause, setPause] = useState(false)
+  const {timeLeft, setTimeLeft, active, setActive, firstTime, setFirstTime, pause, setPause} = useCronometer()
 
   const duration = 8 // duración en segundos
 
