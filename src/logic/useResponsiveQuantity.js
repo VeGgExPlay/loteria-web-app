@@ -14,5 +14,5 @@ export function useResponsiveQuantity(defaultCantidad = 5, smallCantidad = 3, br
         return () => window.removeEventListener('resize', handleResize)
     }, [defaultCantidad, smallCantidad, breakpoint])
 
-    return mapQuantity
+    return {mapQuantity}
 }
