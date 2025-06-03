@@ -5,7 +5,7 @@ const MURF_API_KEY = "ap2_6eadc8d1-6732-4722-9478-d671df554691"
 export function useCardSpeech(actualCard){
     useEffect(() => {
         if(!actualCard) return
-    
+
         const data = {
           text: "¡" + actualCard.title + "!",
           voiceId: "es-MX-carlos",
