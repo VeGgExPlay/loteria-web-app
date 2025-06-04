@@ -1,17 +1,15 @@
-import { useEffect } from 'react'
+import { useEffect, useContext } from 'react'
 import './App.css'
 import { Cronometer } from './components/Cronometer'
-import { ArrowUp } from './components/Icons'
-import { WinnerModal } from './components/WinnerModal'
 import { Board } from './components/Board'
 import { FiltersProvider } from './context/Filters'
 import { useResponsiveQuantity } from './logic/useResponsiveQuantity'
-import { AnimatePresence, motion } from "motion/react"
 import { useCronometer } from './logic/useCronometer'
 import { useCardSpeech } from './logic/useCardSpeech'
-import { useCardGame } from './hooks/useCardsGame'
 import { HistoryGrid } from './components/HistoryGrid'
-import { HistoryModal } from './components/HistoryModal'
+import { HistoryModal } from './components/HistoryModal' 
+import { useShuffleCard } from './logic/useShuffleCard'
+import { CardsGameContext } from './context/CardsGame'
 
 function App() {
   const {
@@ -26,7 +24,7 @@ function App() {
     setEnterCondition,
     modalEnabled,
     setModalEnabled
-  } = useCardGame()
+  } = useContext(CardsGameContext)
 
   const {
     setPause, 
@@ -35,9 +33,12 @@ function App() {
     setFirstTime
   } = useCronometer()
 
+  const shuffleCard = useShuffleCard()
+
   // Reproducir el audio al cambiar la carta
   useCardSpeech(actualCard)
 
+  // Ajustar la cantidad de cartas en pantalla según el ancho
   const { mapQuantity } = useResponsiveQuantity()
 
   // Control del modal del historial
@@ -66,42 +67,9 @@ function App() {
     }
   }, [cardsState])
 
-  // Hacer un shuffle para obtener una carta nueva aleatoria
-  const shuffleCard = () => {
-    if(!enterCondition) return
-    if(actualCard === null){
-      setActualCard(cards[Math.floor(Math.random() * cardsState.length)])
-      return
-    }
-
-    // Agregar la carta actual al historial
-    const newCardsHistory = [...cardsHistory]
-    if(newCardsHistory.length !== cards.length-1){
-      newCardsHistory.push(actualCard)
-      setCardsHistory(newCardsHistory)
-    }
-
-    // Obtener un índice diferente al historial
-    const newAvailable = cardsState.filter(obj => !cardsHistory.some(e => e.id === obj.id))
-    if (newAvailable.length === 0) {
-      const newEnterCondition = false
-      setEnterCondition(newEnterCondition)
-      return
-    }
-
-    const randomIndex = Math.floor(Math.random() * newAvailable.length)
-    newAvailable[randomIndex].id
-
-    
-
-    // Elimina la carta del cardsState
-    const newCardsState = [...cardsState]
-    const filteredCardsState = newCardsState.filter(i => i.id !== newAvailable[randomIndex].id)
-    setCardsState(filteredCardsState)
-
-    // Establecer la nueva carta
-    const newActualCard = cards[newAvailable[randomIndex].id]
-    setActualCard(newActualCard)
+  const handleClick = () => {
+    shuffleCard()
+    console.log(actualCard)
   }
 
   return (
@@ -112,7 +80,7 @@ function App() {
           <Board actualCard={actualCard}/>
         </main>
         <aside>
-          <Cronometer shuffleCardFunction={shuffleCard} enterCondition={enterCondition} actualCard={setActualCard}></Cronometer>
+          <Cronometer shuffleCardFunction={handleClick} enterCondition={enterCondition} actualCard={setActualCard}></Cronometer>
         </aside>
         <footer>
           <HistoryGrid cardsHistory={cardsHistory} mapQuantity={mapQuantity} handleModalEnabled={handleModalEnabled}/>
