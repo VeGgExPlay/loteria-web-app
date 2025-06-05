@@ -1,4 +1,4 @@
-import { useEffect, useContext } from 'react'
+import { useEffect } from 'react'
 import './App.css'
 import { Cronometer } from './components/Cronometer'
 import { Board } from './components/Board'
@@ -9,7 +9,7 @@ import { useCardSpeech } from './logic/useCardSpeech'
 import { HistoryGrid } from './components/HistoryGrid'
 import { HistoryModal } from './components/HistoryModal' 
 import { useShuffleCard } from './logic/useShuffleCard'
-import { CardsGameContext } from './context/CardsGame'
+import { useCardGame } from './context/CardsGame'
 
 function App() {
   const {
@@ -24,7 +24,7 @@ function App() {
     setEnterCondition,
     modalEnabled,
     setModalEnabled
-  } = useContext(CardsGameContext)
+  } = useCardGame()
 
   const {
     setPause, 
@@ -47,7 +47,7 @@ function App() {
   }
 
   // Reestablecer todos los valores por defecto al presionar el botón de reset
-  const resetButton = () => {
+  /* const resetButton = () => {
     setCardsState(cards)
     setActualCard(null)
     setCardsHistory([])
@@ -58,7 +58,7 @@ function App() {
     setTimeLeft(null)
     setEnterCondition(true)
     setFirstTime(true)
-  }
+  } */
 
   //Comprobar que sea la última carta
   useEffect(() => {
@@ -69,7 +69,6 @@ function App() {
 
   const handleClick = () => {
     shuffleCard()
-    console.log(actualCard)
   }
 
   return (
@@ -80,7 +79,7 @@ function App() {
           <Board actualCard={actualCard}/>
         </main>
         <aside>
-          <Cronometer shuffleCardFunction={handleClick} enterCondition={enterCondition} actualCard={setActualCard}></Cronometer>
+          <Cronometer shuffleCardFunction={handleClick} enterCondition={enterCondition}></Cronometer>
         </aside>
         <footer>
           <HistoryGrid cardsHistory={cardsHistory} mapQuantity={mapQuantity} handleModalEnabled={handleModalEnabled}/>

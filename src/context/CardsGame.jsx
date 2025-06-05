@@ -1,7 +1,9 @@
 import { cards as initialCards } from "../logic/constants";
-import { createContext, useState } from "react";
+import { createContext, useState, useContext } from "react";
 
 export const CardsGameContext = createContext();
+
+export const useCardGame = () => useContext(CardsGameContext)
 
 export function CardsGameProvider({ children }) {
   const [cards] = useState(initialCards);
