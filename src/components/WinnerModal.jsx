@@ -56,7 +56,7 @@ export function WinnerModal({ cardsHistory, modalEnabled, handleModalEnabled }) 
                     </motion.div>
                 </motion.div>
                 <div className="cards-history">
-                    <button onClick={handleModalEnabled}><ArrowDown /></button>
+                    <button className="btn btn--large" onClick={handleModalEnabled}><ArrowDown /></button>
                 </div>
             </motion.div>
         </motion.section>

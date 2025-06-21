@@ -23,7 +23,7 @@ export function HistoryGrid({ cardsHistory, mapQuantity, handleModalEnabled }) {
       </div>
       {cardsHistory.length >= mapQuantity ? (
         <div className="cards-history">
-          <button onClick={handleModalEnabled}>
+          <button className="btn btn--large" onClick={handleModalEnabled}>
             <ArrowUp />
           </button>
         </div>

@@ -33,6 +33,44 @@
   }
 }
 
+.btn {
+  color: #ffffff;
+  background-color: #6a0204;
+  border: 4px solid #ffffff;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn:hover {
+  color: #2d63c8;
+  background-color: #ffffff;
+}
+
+.btn--large {
+  padding: 15px 50px;
+  font-size: 16px;
+}
+
+.btn--medium {
+  padding: 10px 30px;
+  font-size: 14px;
+}
+
+.btn--small {
+  padding: 6px 20px;
+  font-size: 12px;
+}
+
+.btn--primary {
+  background-color: #6a0204;
+  color: #fff;
+}
+
+.btn--secondary {
+  background-color: #ffffff;
+  color: #6a0204;
+}
+
 .card {
   padding: 2em;
 }
@@ -56,6 +94,7 @@
   border-radius: 8px;
   padding: 10px 0;
   gap: 12px;
+  min-width: 255px;
 }
 
 .cronometer-container h1{
@@ -66,37 +105,14 @@
   font-size: 20px;
 }
 
-.cronometer-buttons{
-  display: flex;
-  justify-content: space-between;
-}
-
-.cronometer-buttons button {
-	color: #ffffff;
-	background-color: #6a0204;
-	border: 4px solid #ffffff;
-	padding: 15px 50px;
-	cursor: pointer;
-}
-
-.cards-history button {
-	color: #ffffff;
-	background-color: #6a0204;
-	border: 4px solid #ffffff;
-	padding: 15px 50px;
-	cursor: pointer;
-}
-
-.cronometer-buttons button:hover {
-	color: #2d63c8;
-	background-color: #ffffff;
-}
-
-.cards-history button:hover {
-	color: #2d63c8;
-	background-color: #ffffff;
-}
-
 .overflow-scroll{
   overflow: scroll;
+}
+
+.flex{
+  display: flex;
+}
+
+.justify-between { 
+  justify-content: space-between; 
 }

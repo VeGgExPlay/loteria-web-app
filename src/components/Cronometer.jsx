@@ -78,11 +78,11 @@ export function Cronometer({shuffleCardFunction, enterCondition}) {
         <strong>SIGUIENTE CARTA EN:</strong>
         <h1>{formatTime(timeLeft)} <span>SEGS.</span></h1>
       </div>
-      <div className="cronometer-buttons">
-        <button onClick={handleClick}>
+      <div className="flex justify-between">
+        <button className="btn btn--large" onClick={handleClick}>
           {playPauseIcon}
         </button>
-        <button onClick={shuffleHandleClick}>
+        <button className="btn btn--large" onClick={shuffleHandleClick}>
           <ArrowRight></ArrowRight>
         </button>
       </div>
