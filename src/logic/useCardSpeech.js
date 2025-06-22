@@ -1,5 +1,7 @@
 import { useEffect, useRef } from "react";
 
+const MURF_API_KEY = "ap2_6eadc8d1-6732-4722-9478-d671df554691"
+
 // `audioRef` y `abortRef` persistirán entre renders
 export function useCardSpeech(actualCard) {
   const audioRef = useRef(null);
